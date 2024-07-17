@@ -15,21 +15,20 @@ import java.util.Objects;
 @Service
 public class FacultyService {
 
-    private FacultyRepository facultyRepository;
+    private final FacultyRepository facultyRepository;
 
     public FacultyService(FacultyRepository facultyRepository) {
         this.facultyRepository = facultyRepository;
     }
 
     public Faculty createFaculty(Faculty faculty) {
-        if (Objects.isNull(faculty)) {
-            throw new StudentNotFoundException();
-        }
+        faculty.setId(null);
         return facultyRepository.save(faculty);
     }
 
     public Faculty getFacultyById(Long facultyId) {
-        return facultyRepository.findById(facultyId).get();
+        return facultyRepository.findById(facultyId)
+                .orElseThrow(() -> new FacultyNotFoundException());
     }
 
     public void updateFaculty(Long facultyId, Faculty faculty) {
