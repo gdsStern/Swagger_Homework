@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.hogwarts.school.service.AvatarService;
 
 import java.awt.*;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/avatars")
@@ -19,7 +20,7 @@ public class AvatarController {
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public void upload(@RequestPart("avatar") MultipartFile multipartFile,
-                       @RequestParam Long studentId) {
+                       @RequestParam Long studentId) throws IOException {
         avatarService.upload(multipartFile, studentId);
     }
 }

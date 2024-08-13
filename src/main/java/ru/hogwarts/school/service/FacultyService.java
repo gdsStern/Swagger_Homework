@@ -25,7 +25,6 @@ public class FacultyService {
     }
 
     public Faculty createFaculty(Faculty faculty) {
-        faculty.setId(null);
         return facultyRepository.save(faculty);
     }
 
@@ -36,7 +35,7 @@ public class FacultyService {
 
     public void updateFaculty(Long facultyId, Faculty faculty) {
         Faculty oldFaculty = facultyRepository.findById(facultyId).
-                orElseThrow(StudentNotFoundException::new);
+                orElseThrow(FacultyNotFoundException::new);
         oldFaculty.setName(faculty.getName());
         oldFaculty.setColor(faculty.getColor());
         facultyRepository.save(oldFaculty);
@@ -44,7 +43,7 @@ public class FacultyService {
 
     public Faculty deleteFaculty(Long facultyId) {
         Faculty faculty = facultyRepository.findById(facultyId).
-                orElseThrow(StudentNotFoundException::new);
+                orElseThrow(FacultyNotFoundException::new);
         facultyRepository.delete(faculty);
         return faculty;
     }

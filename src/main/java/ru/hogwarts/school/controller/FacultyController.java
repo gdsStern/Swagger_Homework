@@ -1,16 +1,15 @@
 package ru.hogwarts.school.controller;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+//import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.FacultyService;
-import ru.hogwarts.school.service.StudentService;
 
 import java.util.List;
 
-@RequestMapping("/faculty")
 @RestController
+@RequestMapping("/faculty")
 public class FacultyController {
     private final FacultyService facultyService;
 
@@ -18,9 +17,9 @@ public class FacultyController {
         this.facultyService = facultyService;
     }
 
-
     @PostMapping
     public Faculty create(@RequestBody Faculty faculty) {
+        System.out.println(faculty.toString() + " controller");
         return facultyService.createFaculty(faculty);
     }
 
@@ -51,7 +50,7 @@ public class FacultyController {
 
     @GetMapping("/{id}/students")
     public List<Student> findAllByFacultyId(@PathVariable Long id) {
-        return null;
+        return facultyService.findAllByFacultyId(id);
     }
 }
 

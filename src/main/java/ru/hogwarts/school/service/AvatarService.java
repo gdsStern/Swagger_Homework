@@ -32,12 +32,13 @@ public class AvatarService {
         path = Paths.get(avatarDirName);
     }
     @Transactional
-    public void upload(MultipartFile multipartFile, Long studentId) {
+    public void upload(MultipartFile multipartFile, Long studentId) throws IOException {
         try {
             byte[] data = multipartFile.getBytes();
             String extension = StringUtils.getFilenameExtension(multipartFile.getOriginalFilename());
             Path avatarPath = path.resolve(UUID.randomUUID() + "." + extension);
-            Files.write(avatarPath, data);
+            System.out.println(1);
+            //Files.write(avatarPath, data);
             Student student = studentRepository.findById(studentId)
                     .orElseThrow(() -> new StudentNotFoundException());
             Avatar avatar = avatarRepository.findByStudent_Id(studentId)
@@ -47,6 +48,7 @@ public class AvatarService {
             avatar.setData(data);
             avatar.setMediaType(multipartFile.getContentType());
             avatar.setFilePath(avatarPath.toString());
+            avatarRepository.save(avatar);
         } catch (IOException e) {
             throw new AvatarException();
         }

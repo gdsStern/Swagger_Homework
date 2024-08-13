@@ -11,11 +11,16 @@ public class Avatar {
     private String filePath;
     private Long fileSize;
     private String mediaType;
-    @Column(columnDefinition = "oid")
+//    @Column(columnDefinition = "oid")
+    @Lob
     private  byte[] data;
     @OneToOne
     @JoinColumn(name = "student_id")
     private Student student;
+
+    public Avatar() {
+
+    }
 
     public Long getId() {
         return id;
