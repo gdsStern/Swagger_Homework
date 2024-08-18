@@ -24,6 +24,7 @@ public class StudentController {
         this.avatarService = avatarService;
     }
 
+
     @PostMapping
     public Student create(@RequestBody Student student) {
         return studentService.createStudent(student);
