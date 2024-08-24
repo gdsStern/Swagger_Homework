@@ -22,7 +22,7 @@ public class StudentService {
 
     public Student createStudent(Student student) {
         Faculty faculty = null;
-        if (student.getFaculty()!=null && student.getFaculty().getId() != null) {
+        if (student.getFaculty() != null && student.getFaculty().getId() != null) {
             faculty = facultyRepository.findById(student.getFaculty().getId())
                     .orElseThrow(() -> new FacultyNotFoundException());
         }
