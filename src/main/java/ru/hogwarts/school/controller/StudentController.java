@@ -91,4 +91,14 @@ public class StudentController {
     public List<Student> getDescFiveStudents() {
         return studentService.getDescFiveStudents();
     }
+
+    @GetMapping("/startA")
+    public List<String> getStudentStartA() {
+        return studentService.getStudentStartA();
+    }
+
+    @GetMapping("/averageAge")
+    public double getAverageAgeStudents() {
+        return studentService.getAverageAgeStudents();
+    }
 }

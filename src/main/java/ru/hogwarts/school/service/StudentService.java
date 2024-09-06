@@ -11,6 +11,7 @@ import ru.hogwarts.school.repository.FacultyRepository;
 import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
@@ -105,4 +106,22 @@ public class StudentService {
         logger.info("Вызван метод getDescFiveStudents");
         return studentRepository.getDescFiveStudents();
     }
+
+    public List<String> getStudentStartA() {
+        return studentRepository.findAll().stream()
+                .parallel()
+                .map((s) -> s.getName())
+                .map((s) -> s.toUpperCase())
+                .filter((s) -> s.startsWith("A"))
+                .sorted()
+                .toList();
+    }
+
+    public double getAverageAgeStudents() {
+        return studentRepository.findAll().stream()
+                .parallel()
+                .collect(Collectors.averagingInt((s) -> s.getAge()));
+    }
+
+
 }

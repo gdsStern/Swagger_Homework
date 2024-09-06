@@ -10,10 +10,8 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.FacultyRepository;
 import ru.hogwarts.school.repository.StudentRepository;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Stream;
 
 @Service
 public class FacultyService {
@@ -77,5 +75,20 @@ public class FacultyService {
     public List<Student> findAllByFacultyId(Long id) {
         logger.info("Вызван метод findAllByFacultyId");
         return studentRepository.findAllByFaculty_Id(id);
+    }
+
+    public String getLongerNameFaculty() {
+        return facultyRepository.findAll().stream()
+                .map((f) -> f.getName())
+                .max(Comparator.comparing((s) -> s.length()))
+                .orElseThrow(() -> new FacultyNotFoundException());
+    }
+
+
+    public int getInt() {
+        return Stream.iterate(1, a -> a + 1)
+                .parallel()
+                .limit(1_000_000)
+                .reduce(0, (a, b) -> a + b);
     }
 }

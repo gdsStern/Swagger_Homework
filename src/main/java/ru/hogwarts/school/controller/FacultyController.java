@@ -52,5 +52,15 @@ public class FacultyController {
     public List<Student> findAllByFacultyId(@PathVariable Long id) {
         return facultyService.findAllByFacultyId(id);
     }
+
+    @GetMapping("/longerName")
+    public String getLongerNameFaculty() {
+        return facultyService.getLongerNameFaculty();
+    }
+
+    @GetMapping("/int")
+    public int getInt() {
+        return facultyService.getInt();
+    }
 }
 
