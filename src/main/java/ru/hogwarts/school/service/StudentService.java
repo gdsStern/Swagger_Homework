@@ -109,7 +109,6 @@ public class StudentService {
 
     public List<String> getStudentStartA() {
         return studentRepository.findAll().stream()
-                .parallel()
                 .map((s) -> s.getName())
                 .map((s) -> s.toUpperCase())
                 .filter((s) -> s.startsWith("A"))
@@ -119,7 +118,6 @@ public class StudentService {
 
     public double getAverageAgeStudents() {
         return studentRepository.findAll().stream()
-                .parallel()
                 .collect(Collectors.averagingInt((s) -> s.getAge()));
     }
 
