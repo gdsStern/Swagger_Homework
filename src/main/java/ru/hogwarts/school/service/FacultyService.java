@@ -11,6 +11,7 @@ import ru.hogwarts.school.repository.FacultyRepository;
 import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.*;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 @Service
@@ -86,9 +87,9 @@ public class FacultyService {
 
 
     public int getInt() {
-        return Stream.iterate(1, a -> a + 1)
+        return IntStream
+                .iterate(1, a -> a + 1)
                 .limit(1_000_000)
-                .parallel()
                 .reduce(0, (a, b) -> a + b);
     }
 }
