@@ -121,5 +121,49 @@ public class StudentService {
                 .collect(Collectors.averagingInt((s) -> s.getAge()));
     }
 
+    public void getStudentsParallel() {
+        List<String> firstSixStudentsList = studentRepository.getFirstSixNameStudents();
+        printStudent(firstSixStudentsList, 0);
+        printStudent(firstSixStudentsList, 1);
+
+        new Thread(() -> {
+            printStudent(firstSixStudentsList, 2);
+            printStudent(firstSixStudentsList, 3);
+        }).start();
+
+        new Thread(() -> {
+            printStudent(firstSixStudentsList, 4);
+            printStudent(firstSixStudentsList, 5);
+        }).start();
+
+    }
+
+    public void getStudentsSynchronized() {
+        List<String> firstSixStudentsList = studentRepository.getFirstSixNameStudents();
+        final Object object = new Object();
+        printStudent(firstSixStudentsList, 0);
+        printStudent(firstSixStudentsList, 1);
+
+        new Thread(() -> {
+            synchronized (object) {
+                printStudent(firstSixStudentsList, 2);
+                printStudent(firstSixStudentsList, 3);
+            }
+        }).start();
+
+        new Thread(() -> {
+            synchronized (object) {
+                printStudent(firstSixStudentsList, 4);
+                printStudent(firstSixStudentsList, 5);
+            }
+        }).start();
+    }
+
+    private void printStudent(List<String> list, int id) {
+        if(list.get(id) != null) {
+            System.out.println(list.get(id));
+        }
+    }
+
 
 }
